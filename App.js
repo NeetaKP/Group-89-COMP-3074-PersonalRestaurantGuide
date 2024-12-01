@@ -1,126 +1,123 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, FlatList} from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, ScrollView} from 'react-native';
 
-import * as React from 'react';
-import useState from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStaticNavigation, useNavigation } from '@react-navigation/native';
 
 
-function HomeScreen() {
-  //https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_Dv1yNa0m5CkEz5V0paK3eiXl19G69Od0wnl80M2S
-   //const [currency,setCurrencies] = useState([]);
+import * as React from 'react';
+import {useState,useEffect} from 'react';
 
-   const data = {
-    s1:{name:"Neeta Koirala Pant", id: "101331989"},
-    s2:{name:"Nilam",id:"101456610"},
-    s3:{name:"Jacques",id:"100989148"}
-   };
+import SplashScreen from './screenviews/SplashScreenView';
+import RootStack from './navigation/RootStackNavigator';
 
-   const restaurantData = [
-    {name:"Golden Diner",address:"105 Carlton St., Toronto, ON",vegeterian:true},
-    {name:"Sushi Gen",address:"1560 Yonge St, Toronto, ON",vegeterian:false},
-    {name:"Khau Gully",address:"1991 Yonge St, Toronto, ON",vegeterian:true},
-    {name:"Saravanaa Bhavan",address:"1571 Sandhurst Cir Unit 153, Scarborough, ON",vegeterian:true},
-    {name:"The King's Curry",address:"3038 Boor St W, Toronto",vegeterian:false},
-    {name:"Kelseys Original Roadhouse",address:"2870 Queen St E, Brampton, ON",vegeterian:false},
-    {name:"Ngon Corner",address:"9021 Leslie St, Richmond Hill, ON",vegeterian:false},
-    {name:"Maxican Amigos",address:"10720 Yonge St, Richmond Hill, ON",vegeterian:false},
-    {name:"Golden Diner",address:"105 Carlton St., Toronto, ON",vegeterian:true},
-    {name:"Sushi Gen",address:"1560 Yonge St, Toronto, ON",vegeterian:false},
-    {name:"Khau Gully",address:"1991 Yonge St, Toronto, ON",vegeterian:true},
-    {name:"Saravanaa Bhavan",address:"1571 Sandhurst Cir Unit 153, Scarborough, ON",vegeterian:true},
-    {name:"The King's Curry",address:"3038 Boor St W, Toronto",vegeterian:false},
-    {name:"Kelseys Original Roadhouse",address:"2870 Queen St E, Brampton, ON",vegeterian:false},
-    {name:"Ngon Corner",address:"9021 Leslie St, Richmond Hill, ON",vegeterian:false},
-    {name:"Maxican Amigos",address:"10720 Yonge St, Richmond Hill, ON",vegeterian:false}
-   ];
- 
- 
-   const navigation = useNavigation();
-   return(
-     <View>
-     <View>
-       <Button title="ABOUT PAGE" onPress={() => navigation.navigate('About',data)} />
-       <Button title="RESTAURANT LISTS" onPress={() => navigation.navigate('RestaurantList',{data:restaurantData})} />
-       <Button title="RESTAURANT MAP" onPress={() => navigation.navigate('Restaurantmap',{restaurantmap})} />
-
-       
-     </View>
-     /* <View>
-      <FlatList
-      data = {restaurantData} 
-      //renderItem = {({item}) => <Text>{item.name},{item.address},{item.vegeterian}</Text>}
-       />
- 
-       
-     </View> */
-     </View>
-    )
-  }
- // navigation of the button reataurant list
- function RestaurantListScreen({route}){
-  //data = route
-  const data = route.params.data
-  return(
-    //<Text>I am from restaurant list</Text>
-    <FlatList
-      data = {data}
-      renderItem = {({item}) => <Text style = {styles.item}>{item.name},{item.address},{item.vegeterian}</Text>}
-    />
-  )
-  
-
- }
-
-function AboutScreen({route}){
-  const navigation = useNavigation();
-  const {s1,s2} = route.params
-
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text style={{ fontSize: 32 }}>Group Members</Text>
-      <Text></Text>
-      <View>
-      <Text style={{ fontSize: 18 }}>Name: {s1.name} (Id: {s1.id})</Text>
-      <Text style={{ fontSize: 18 }}>Name: {s2.name} (Id: {s2.id})</Text>
-      </View>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Button title="Back to MainScreen..." onPress={() => navigation.navigate('Home')}>
-        Back to MainScreen...
-      </Button>
-    </View>
-  )
-}
-
-
-const RootStack = createNativeStackNavigator({
-  initialRouteName: 'Home',
-  screens: {
-    Home:{
-    screen: HomeScreen,
-    options:{
-      title: 'Personal Restaurant Guide',
-    }
-  },
-  About: AboutScreen,
-  RestaurantList: RestaurantListScreen
-},
-})
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Navigation = createStaticNavigation(RootStack)
 
 export default function App() {
-  return (
-    <Navigation />
+  const [isShowSplash,setIsShowSplash] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShowSplash(false);
+    },3000);
+  });
+
+
+ function createStorage(){
+  AsyncStorage.setItem("0",JSON.stringify({
+    name:"Golden Diner",
+    address:"105 Carlton St., Toronto, ON",
+    phone:"4169779898",
+    description:"Located close to Carlton and Jarvis streets. Streetcar access. Close to Subway station.",
+    vegeterian:true,
+    lat:43.66228542620163,
+    lon:-79.37747829483344
+  }))
+  AsyncStorage.mergeItem("1",JSON.stringify({
+    name:"Sushi Gen",
+    address:"1560 Yonge St, Toronto, ON",
+    phone:"4169213388",
+    description:"A menu of sushi, bento boxes, rice dishes & more in a contemporary Japanese restaurant.",
+    vegeterian:false,
+    lat:43.69021806111137,
+    lon:-79.39487753956385
+  }))
+  AsyncStorage.mergeItem("2",JSON.stringify({
+    name:"Khau Gully",
+    address:"1991 Yonge St, Toronto, ON",
+    phone:"6473479993",
+    description:"Stylish, relaxed setting for familiar Indian dishes presented with contemporary flair.",
+    vegeterian:true,
+    lat: 43.70066770753744,
+    lon:-79.3967880090704
+  }))
+  AsyncStorage.mergeItem("3",JSON.stringify({
+    name:"Saravanaa Bhavan",
+    address:"1571 Sandhurst Cir Unit 153, Scarborough, ON",
+    phone:"4162937755",
+    description:"Woodside Square Mall - McCowan Entrance",
+    vegeterian:true,
+    lat:43.81252656247926,
+    lon:-79.26559298230912
+  }))
+  AsyncStorage.mergeItem("4",JSON.stringify({
+    name:"The King's Curry",
+    address:"3038 Boor St W, Toronto",
+    phone:"4162399191",
+    description:"Indian restaurant",
+    vegeterian:false,
+    lat:43.647335029424326,
+    lon:-79.51242099605662
+  }))
+  AsyncStorage.mergeItem("5",JSON.stringify({
+    name:"Kelseys Original Roadhouse",
+    address:"2870 Queen St E, Brampton, ON",
+    phone:"9054706700",
+    description:"Large portions of American fare & specially cocktails in a casual setting with comfy booths and TVs",
+    vegeterian:false,
+    lat:43.7420711391759,
+    lon:-79.69805280742311
+  }))
+  AsyncStorage.mergeItem("6",JSON.stringify({
+    name:"Ngon Corner",
+    address:"9021 Leslie St, Richmond Hill, ON",
+    phone:"9057078858",
+    description:"Vietnamese restaurant",
+    vegeterian:false,
+    lat:43.84843787880502,
+    lon:-79.38225451007843
+  }))
+  AsyncStorage.mergeItem("7",JSON.stringify({
+    name:"Maxican Amigos",
+    address:"10720 Yonge St, Richmond Hill, ON",
+    phone:"9057800303",
+    description:"Mexical restaurant. This colourful sports bar offers a menu of Mexican staples & hosts live music on weekends.",
+    vegeterian:false,
+    lat:43.88934070316039,
+    lon:-79.44183320699955
+  }))
+
+ }
+
+
+  return( 
+    <>
+    {createStorage()}
+    {isShowSplash ? (<SplashScreen />):(<Navigation/>)}
+    </>
   );
 }
+
+
+
+
+
+// export default function App() {
+//   return (
+//     <Navigation />
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -128,14 +125,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    
   },
-  item:{
+  item: {
     padding: 10,
-    fontSize:18,
-    height:44,
-    backgroundColor:"aqua"
-
-
+    fontSize: 18,
+    height: 44,
+    backgroundColor:'aqua',
+    marginBottom:5,
+    borderRadius:10,
+    marginHorizontal:10,
+    color:'black'
+  },
+  item_details_label:{
+    fontSize:24,
+  },
+  item_details_data:{
+    fontSize:24,
   }
 });

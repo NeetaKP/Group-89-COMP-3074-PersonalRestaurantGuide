@@ -1,6 +1,6 @@
 import {Image, StyleSheet, View} from "react-native";
 
-import Icon from "./assets/icon.png";
+import Icon from "../assets/icon.png";
 
 //<Image source={RestaurantIcon} style={styles.image}/>}
 
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     image:{
         width: 100,
         height: 100,
-        resizeMode: "cover"
+        resizeMode: "cover",
+        borderRadius:10
     }
 })
