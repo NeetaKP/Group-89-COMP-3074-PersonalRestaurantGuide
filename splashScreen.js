@@ -4,8 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const SplashScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Your   
- App Name</Text>
+      <Text style={styles.text}>Personal Restaurant Guide</Text>
     </View>
   );
 };
