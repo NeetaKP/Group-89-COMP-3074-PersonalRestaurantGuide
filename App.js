@@ -1,16 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, FlatList, ScrollView} from 'react-native';
-
-import { createStaticNavigation, useNavigation } from '@react-navigation/native';
-
-
+import { StyleSheet} from 'react-native';
+import { createStaticNavigation} from '@react-navigation/native';
 import * as React from 'react';
 import {useState,useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import SplashScreen from './screenviews/SplashScreenView';
 import RootStack from './navigation/RootStackNavigator';
-
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Navigation = createStaticNavigation(RootStack)
 
@@ -32,7 +27,8 @@ export default function App() {
     description:"Located close to Carlton and Jarvis streets. Streetcar access. Close to Subway station.",
     vegeterian:true,
     lat:43.66228542620163,
-    lon:-79.37747829483344
+    lon:-79.37747829483344,
+    rating:2.5
   }))
   AsyncStorage.mergeItem("1",JSON.stringify({
     name:"Sushi Gen",
@@ -41,7 +37,8 @@ export default function App() {
     description:"A menu of sushi, bento boxes, rice dishes & more in a contemporary Japanese restaurant.",
     vegeterian:false,
     lat:43.69021806111137,
-    lon:-79.39487753956385
+    lon:-79.39487753956385,
+    rating:2.5
   }))
   AsyncStorage.mergeItem("2",JSON.stringify({
     name:"Khau Gully",
@@ -50,7 +47,8 @@ export default function App() {
     description:"Stylish, relaxed setting for familiar Indian dishes presented with contemporary flair.",
     vegeterian:true,
     lat: 43.70066770753744,
-    lon:-79.3967880090704
+    lon:-79.3967880090704,
+    rating:2.5
   }))
   AsyncStorage.mergeItem("3",JSON.stringify({
     name:"Saravanaa Bhavan",
@@ -59,7 +57,8 @@ export default function App() {
     description:"Woodside Square Mall - McCowan Entrance",
     vegeterian:true,
     lat:43.81252656247926,
-    lon:-79.26559298230912
+    lon:-79.26559298230912,
+    rating:2.5
   }))
   AsyncStorage.mergeItem("4",JSON.stringify({
     name:"The King's Curry",
@@ -68,7 +67,8 @@ export default function App() {
     description:"Indian restaurant",
     vegeterian:false,
     lat:43.647335029424326,
-    lon:-79.51242099605662
+    lon:-79.51242099605662,
+    rating:2.5
   }))
   AsyncStorage.mergeItem("5",JSON.stringify({
     name:"Kelseys Original Roadhouse",
@@ -77,7 +77,8 @@ export default function App() {
     description:"Large portions of American fare & specially cocktails in a casual setting with comfy booths and TVs",
     vegeterian:false,
     lat:43.7420711391759,
-    lon:-79.69805280742311
+    lon:-79.69805280742311,
+    rating:2.5
   }))
   AsyncStorage.mergeItem("6",JSON.stringify({
     name:"Ngon Corner",
@@ -86,7 +87,8 @@ export default function App() {
     description:"Vietnamese restaurant",
     vegeterian:false,
     lat:43.84843787880502,
-    lon:-79.38225451007843
+    lon:-79.38225451007843,
+    rating:2.5
   }))
   AsyncStorage.mergeItem("7",JSON.stringify({
     name:"Maxican Amigos",
@@ -95,7 +97,8 @@ export default function App() {
     description:"Mexical restaurant. This colourful sports bar offers a menu of Mexican staples & hosts live music on weekends.",
     vegeterian:false,
     lat:43.88934070316039,
-    lon:-79.44183320699955
+    lon:-79.44183320699955,
+    rating:2.5
   }))
 
  }

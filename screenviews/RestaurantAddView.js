@@ -14,6 +14,7 @@ export default function RestaurantAddScreen(){
     const [vegeterian,setVegeterian] = useState()
     const [lattitude, setLattitude] = useState(0.0)
     const [longitude, setLongitude] = useState(0.0)
+    const [rating, setRating] = useState(2.5)
     const [added, setAdded] = useState(false)
 
     const handleSubmit = () => {
@@ -31,7 +32,8 @@ export default function RestaurantAddScreen(){
             description: description,
             vegeterian: vegeterian,
             lat: parseFloat(lattitude),
-            lon: parseFloat(longitude)
+            lon: parseFloat(longitude),
+            rating:rating
         }
 
         const execute = ()=> {   

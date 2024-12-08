@@ -9,7 +9,16 @@ export default function RestaurantEditScreen({route}){
     const srcData = route.params.data
     console.log("key:",route.data)
 
-    const [data,setData] = useState({key:"a",value:"223"})
+    const [data,setData] = useState({key:"a",value:{
+        name: "name",
+        address: "address",
+        phone: "phone", 
+        description: "description",
+        vegeterian: false,
+        lat: srcData.value.lat,
+        lon: srcData.value.lon,
+        rating: rating
+    }})
     const [added1, setAdded1] = useState(false)
 
 
@@ -18,8 +27,9 @@ export default function RestaurantEditScreen({route}){
     const [phone,setPhone] = useState(srcData.value.phone)
     const [description,setDescription] = useState(srcData.value.description)
     const [vegeterian,setVegeterian] = useState(srcData.value.vegeterian)
-    const [lattitude,setLattitude] = useState(srcData.value.lat)
-    const [longitude,setLongitude] = useState(srcData.value.lon)
+    const [lattitude,setLattitude] = useState(srcData.value.lat.toString())
+    const [longitude,setLongitude] = useState(srcData.value.lon.toString())
+    const [rating,setRating] = useState(srcData.value.rating)
     const [added, setAdded] = useState(false)
 
     const initialData = () => {
@@ -38,8 +48,10 @@ export default function RestaurantEditScreen({route}){
             });
             setAdded1(true)
           });
+          console.log("Intitial data set")
         
     }
+
     initialData()
 
     const handleSubmit = () => {
@@ -57,7 +69,8 @@ export default function RestaurantEditScreen({route}){
             description: description,
             vegeterian: vegeterian,
             lat: parseFloat(lattitude),
-            lon: parseFloat(longitude)
+            lon: parseFloat(longitude),
+            rating: rating
         }
 
         const execute = ()=> {   
@@ -84,6 +97,13 @@ export default function RestaurantEditScreen({route}){
         <>
         <Text>Enter new restaurant data</Text>
         <>
+        {
+            console.log("lat:",data.value.lat)
+        }
+        {
+                        console.log("lattitude:",lattitude)
+
+        }
         <View>
             <Text>Restaurant name:</Text>
             <TextInput 
@@ -118,14 +138,15 @@ export default function RestaurantEditScreen({route}){
             </TouchableOpacity>
             <Text>Lattitude:</Text>
             <TextInput 
-            placeholder={data.value.lat}
+            placeholder={data.value.lat.toString()}
             keyboardType='numeric'
             value={lattitude}
             onChangeText={setLattitude}
             />
+             
             <Text>Longitude:</Text>
             <TextInput 
-            placeholder={data.value.lon}
+            placeholder={data.value.lon.toString()}
             keyboardType='numeric'
             value={longitude}
             onChangeText={setLongitude}
